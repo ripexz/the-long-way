@@ -49,6 +49,7 @@
      <Compile Include="Assets\reloadScene.cs" />
      <Compile Include="Assets\spawnPeople.cs" />
      <Compile Include="Assets\startFire.cs" />
+     <Compile Include="Assets\toggleSpawners.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/ripexz/Documents/Unity/the-long-way/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>

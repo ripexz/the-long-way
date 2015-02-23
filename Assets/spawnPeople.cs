@@ -9,8 +9,13 @@ public class spawnPeople : MonoBehaviour {
 	public bool canBeEmpty;
 
 	void SpawnPerson() {
+		float width = transform.localScale.x * 10;
+		float length = transform.localScale.z * 10;
+
 		Vector3 location = Random.insideUnitSphere;
-		location *= (transform.localScale.x + transform.localScale.z);
+		location *= (width + length);
+		location.x = Random.Range((width / 2 * -1), (width / 2));
+		location.z = Random.Range((length / 2 * -1), (length / 2));
 		location += transform.position;
 		location.y = (person.transform.localScale.y / 2) + 0.001f; //ground the person
 
