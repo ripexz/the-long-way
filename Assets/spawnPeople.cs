@@ -17,7 +17,7 @@ public class spawnPeople : MonoBehaviour {
 		location.x = Random.Range((width / 2 * -1), (width / 2));
 		location.z = Random.Range((length / 2 * -1), (length / 2));
 		location += transform.position;
-		location.y = (person.transform.localScale.y / 2) + 0.001f; //ground the person
+		location.y = (person.transform.localScale.y) + 0.001f; //ground the person
 
 		Instantiate(person, location, transform.rotation);
 	}

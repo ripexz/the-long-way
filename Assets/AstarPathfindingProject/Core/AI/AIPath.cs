@@ -47,7 +47,7 @@ public class AIPath : MonoBehaviour {
 	 * The AI will try to follow/move towards this target.
 	 * It can be a point on the ground where the player has clicked in an RTS for example, or it can be the player object in a zombie game.
 	 */
-	public Transform target;
+	private Transform target;
 	
 	/** Enables or disables searching for paths.
 	 * Setting this to false does not stop any active path requests from being calculated or stop it from continuing to follow the current path.
@@ -168,6 +168,7 @@ public class AIPath : MonoBehaviour {
 	 * \see RepeatTrySearchPath
 	 */
 	protected virtual void Start () {
+		target = GameObject.FindGameObjectWithTag("Target").transform;
 		startHasRun = true;
 		OnEnable ();
 	}
@@ -256,6 +257,7 @@ public class AIPath : MonoBehaviour {
 		//add it here
 		//You can also create a new script which inherits from this one
 		//and override the function in that script
+		Destroy(gameObject);
 	}
 	
 	/** Called when a requested path has finished calculation.
