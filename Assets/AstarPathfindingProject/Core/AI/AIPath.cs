@@ -168,9 +168,29 @@ public class AIPath : MonoBehaviour {
 	 * \see RepeatTrySearchPath
 	 */
 	protected virtual void Start () {
-		target = GameObject.FindGameObjectWithTag("Target").transform;
+		target = FindClosestTarget();
+
 		startHasRun = true;
 		OnEnable ();
+	}
+
+	private Transform FindClosestTarget() {
+		GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+		GameObject closest = targets[0];
+		Vector3 position = transform.position;
+		
+		float distance = Mathf.Infinity;
+		
+		foreach (GameObject t in targets) {
+			Vector3 diff = t.transform.position - position;
+			float curDistance = diff.sqrMagnitude;
+			if (curDistance < distance) {
+				closest = t;
+				distance = curDistance;
+			}
+		}
+
+		return closest.transform;
 	}
 	
 	/** Run at start and when reenabled.
@@ -257,7 +277,12 @@ public class AIPath : MonoBehaviour {
 		//add it here
 		//You can also create a new script which inherits from this one
 		//and override the function in that script
-		Destroy(gameObject);
+
+		gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+		gameObject.GetComponent<DynamicGridObstacle>().enabled = false;
+		gameObject.GetComponent<CharacterController>().enabled = false;
+		gameObject.GetComponent<AIPath>().enabled = false;
+		//Destroy(gameObject);
 	}
 	
 	/** Called when a requested path has finished calculation.
