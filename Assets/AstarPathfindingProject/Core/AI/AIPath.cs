@@ -133,6 +133,13 @@ public class AIPath : MonoBehaviour {
 	protected Vector3 lastFoundWaypointPosition;
 	protected float lastFoundWaypointTime = -9999;
 
+	private bool isOnFire = false;
+
+	public void SetOnFire() {
+		isOnFire = true;
+		gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+	}
+
 	/** Returns if the end-of-path has been reached
 	 * \see targetReached */
 	public bool TargetReached {
@@ -278,7 +285,9 @@ public class AIPath : MonoBehaviour {
 		//You can also create a new script which inherits from this one
 		//and override the function in that script
 
-		gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+		Color colorToUse = isOnFire ? Color.yellow : Color.green;
+
+		gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 		gameObject.GetComponent<DynamicGridObstacle>().enabled = false;
 		gameObject.GetComponent<CharacterController>().enabled = false;
 		gameObject.GetComponent<AIPath>().enabled = false;

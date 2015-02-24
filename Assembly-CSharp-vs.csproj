@@ -111,6 +111,7 @@
      <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
      <Compile Include="Assets\DynamicGridObstacle.cs" />
      <Compile Include="Assets\reloadScene.cs" />
+     <Compile Include="Assets\setOnFire.cs" />
      <Compile Include="Assets\spawnPeople.cs" />
      <Compile Include="Assets\startFire.cs" />
      <Compile Include="Assets\toggleSpawners.cs" />

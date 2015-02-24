@@ -8,9 +8,15 @@ public class startFire : MonoBehaviour {
 
 	void StartFire(Vector3 location) {
 		if (!fireStarted) {
+			GameObject[] people = GameObject.FindGameObjectsWithTag("Player");
+
 			location.y = 0.2f; // ground the fire
 			fire = (Transform) Instantiate(fire, location, transform.rotation);
 			fireStarted = true;
+
+			foreach (GameObject person in people) {
+				person.GetComponent<AIPath>().enabled = true;
+			}
 		}
 	}
 
