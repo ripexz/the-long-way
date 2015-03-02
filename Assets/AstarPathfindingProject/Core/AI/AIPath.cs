@@ -63,6 +63,11 @@ public class AIPath : MonoBehaviour {
 	 * This is the maximum speed in world units per second.
 	 */
 	public float speed = 3;
+
+	/** Speed range
+	 * Possible variation in maximum velocity
+	 */
+	public float speedRange = 2;
 	
 	/** Rotation speed.
 	 * Rotation is calculated using Quaternion.SLerp. This variable represents the damping, the higher, the faster it will be able to rotate.
@@ -177,6 +182,8 @@ public class AIPath : MonoBehaviour {
 	protected virtual void Start () {
 		target = FindClosestTarget();
 
+		speed = speed + Random.Range(-speedRange, speedRange);
+
 		startHasRun = true;
 		OnEnable ();
 	}
@@ -278,7 +285,7 @@ public class AIPath : MonoBehaviour {
 		seeker.StartPath (GetFeetPosition(), targetPosition);
 	}
 	
-	public virtual void OnTargetReached () {
+	public virtual void OnTargetReached() {
 		//End of path has been reached
 		//If you want custom logic for when the AI has reached it's destination
 		//add it here
@@ -286,6 +293,15 @@ public class AIPath : MonoBehaviour {
 		//and override the function in that script
 
 		Color colorToUse = isOnFire ? Color.yellow : Color.green;
+
+		// Check if we made it or if we're stuck:
+		Vector3 dist = target.position - transform.position;
+		dist.y = 0;
+		float targetDist = dist.magnitude;
+		
+		if (targetDist > endReachedDistance) {
+			colorToUse = isOnFire ? Color.black : Color.magenta;
+		}
 
 		gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 		gameObject.GetComponent<DynamicGridObstacle>().enabled = false;
@@ -442,7 +458,10 @@ public class AIPath : MonoBehaviour {
 		this.targetPoint = targetPosition;
 		
 		if (currentWaypointIndex == vPath.Count-1 && targetDist <= endReachedDistance) {
-			if (!targetReached) { targetReached = true; OnTargetReached (); }
+			if (!targetReached) {
+				targetReached = true;
+				OnTargetReached();
+			}
 			
 			//Send a move request, this ensures gravity is applied
 			return Vector3.zero;
