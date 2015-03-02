@@ -18,4 +18,5 @@ public class toggleSpawners : MonoBehaviour {
 			renderer.enabled = visible;
 		}
 	}
+
 }
