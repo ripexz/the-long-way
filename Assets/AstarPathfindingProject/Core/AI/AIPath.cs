@@ -100,7 +100,12 @@ public class AIPath : MonoBehaviour {
 	 * even though it really should just proceed forward.
 	 */
 	public bool closestOnPathCheck = true;
-	
+
+	/** Consider this unit trapped after time specified
+	 * OnTargetReached will be called and trapped status will be calculated.
+	 */
+	public float trappedTimeout = 10.0f;
+
 	protected float minMoveScale = 0.05F;
 	
 	/** Cached Seeker component */
@@ -139,6 +144,7 @@ public class AIPath : MonoBehaviour {
 	protected float lastFoundWaypointTime = -9999;
 
 	private bool isOnFire = false;
+	private float activatedAt;
 
 	public void SetOnFire() {
 		isOnFire = true;
@@ -213,7 +219,8 @@ public class AIPath : MonoBehaviour {
 	 * \see Start
 	 */
 	protected virtual void OnEnable () {
-		
+
+		activatedAt = Time.time;
 		lastRepath = -9999;
 		canSearchAgain = true;
 
@@ -371,7 +378,11 @@ public class AIPath : MonoBehaviour {
 	}
 	
 	public virtual void Update () {
-		
+
+		if ((Time.time - activatedAt) >= trappedTimeout) {
+			OnTargetReached();
+		}
+
 		if (!canMove) { return; }
 		
 		Vector3 dir = CalculateVelocity (GetFeetPosition());
