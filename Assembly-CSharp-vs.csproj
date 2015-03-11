@@ -110,11 +110,13 @@
      <Compile Include="Assets\AstarPathfindingProject\Utilities\UnityReferenceHelper.cs" />
      <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
      <Compile Include="Assets\DynamicGridObstacle.cs" />
+     <Compile Include="Assets\getTagCount.cs" />
      <Compile Include="Assets\reloadScene.cs" />
      <Compile Include="Assets\setOnFire.cs" />
      <Compile Include="Assets\spawnPeople.cs" />
      <Compile Include="Assets\startFire.cs" />
      <Compile Include="Assets\toggleSpawners.cs" />
+     <Compile Include="Assets\toggleStats.cs" />
      <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh2.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />

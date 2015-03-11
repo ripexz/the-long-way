@@ -146,9 +146,12 @@ public class AIPath : MonoBehaviour {
 	private bool isOnFire = false;
 	private float activatedAt;
 
+	private GameObject status;
+
 	public void SetOnFire() {
 		isOnFire = true;
 		gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+		status.tag = "Injured";
 	}
 
 	/** Returns if the end-of-path has been reached
@@ -186,6 +189,7 @@ public class AIPath : MonoBehaviour {
 	 * \see RepeatTrySearchPath
 	 */
 	protected virtual void Start () {
+		status = transform.Find("Status").gameObject;
 		target = FindClosestTarget();
 
 		speed = speed + Random.Range(-speedRange, speedRange);
@@ -300,6 +304,7 @@ public class AIPath : MonoBehaviour {
 		//and override the function in that script
 
 		Color colorToUse = isOnFire ? Color.yellow : Color.green;
+		string statusTag = isOnFire ? "EscapedInjured" : "Escaped";
 
 		// Check if we made it or if we're stuck:
 		Vector3 dist = target.position - transform.position;
@@ -308,8 +313,10 @@ public class AIPath : MonoBehaviour {
 		
 		if (targetDist > endReachedDistance) {
 			colorToUse = isOnFire ? Color.black : Color.magenta;
+			statusTag = isOnFire ? "TrappedInjured" : "Trapped";
 		}
 
+		status.tag = statusTag;
 		gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 		gameObject.GetComponent<DynamicGridObstacle>().enabled = false;
 		gameObject.GetComponent<CharacterController>().enabled = false;
