@@ -144,6 +144,7 @@ public class AIPath : MonoBehaviour {
 	protected float lastFoundWaypointTime = -9999;
 
 	private bool isOnFire = false;
+	private bool isEvacuated = false;
 	private float activatedAt;
 
 	private GameObject status;
@@ -152,6 +153,16 @@ public class AIPath : MonoBehaviour {
 		isOnFire = true;
 		gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
 		status.tag = "Injured";
+	}
+
+	public void SetEvacuated() {
+		isEvacuated = true;
+
+		Color colorToUse = isOnFire ? Color.yellow : Color.green;
+		string statusTag = isOnFire ? "EscapedInjured" : "Escaped";
+
+		status.tag = statusTag;
+		gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 	}
 
 	/** Returns if the end-of-path has been reached
@@ -190,6 +201,7 @@ public class AIPath : MonoBehaviour {
 	 */
 	protected virtual void Start () {
 		status = transform.Find("Status").gameObject;
+		status.tag = "Normal";
 		target = FindClosestTarget();
 
 		speed = speed + Random.Range(-speedRange, speedRange);
@@ -303,9 +315,9 @@ public class AIPath : MonoBehaviour {
 		//You can also create a new script which inherits from this one
 		//and override the function in that script
 
-		Color colorToUse = isOnFire ? Color.yellow : Color.green;
+		/*Color colorToUse = isOnFire ? Color.yellow : Color.green;
 		string statusTag = isOnFire ? "EscapedInjured" : "Escaped";
-
+		
 		// Check if we made it or if we're stuck:
 		Vector3 dist = target.position - transform.position;
 		dist.y = 0;
@@ -314,10 +326,16 @@ public class AIPath : MonoBehaviour {
 		if (targetDist > endReachedDistance) {
 			colorToUse = isOnFire ? Color.black : Color.magenta;
 			statusTag = isOnFire ? "TrappedInjured" : "Trapped";
+		}*/
+
+		if (!isEvacuated) {
+			string statusTag = isOnFire ? "TrappedInjured" : "Trapped";
+			Color colorToUse = isOnFire ? Color.black : Color.magenta;
+					
+			status.tag = statusTag;
+			gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 		}
 
-		status.tag = statusTag;
-		gameObject.GetComponent<MeshRenderer>().material.color = colorToUse;
 		gameObject.GetComponent<DynamicGridObstacle>().enabled = false;
 		gameObject.GetComponent<CharacterController>().enabled = false;
 		gameObject.GetComponent<AIPath>().enabled = false;

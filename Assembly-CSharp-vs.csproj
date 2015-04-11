@@ -110,8 +110,10 @@
      <Compile Include="Assets\AstarPathfindingProject\Utilities\UnityReferenceHelper.cs" />
      <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
      <Compile Include="Assets\DynamicGridObstacle.cs" />
+     <Compile Include="Assets\calculateTime.cs" />
      <Compile Include="Assets\getTagCount.cs" />
      <Compile Include="Assets\reloadScene.cs" />
+     <Compile Include="Assets\setEvacuated.cs" />
      <Compile Include="Assets\setOnFire.cs" />
      <Compile Include="Assets\spawnPeople.cs" />
      <Compile Include="Assets\startFire.cs" />

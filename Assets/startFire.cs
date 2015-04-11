@@ -5,6 +5,7 @@ public class startFire : MonoBehaviour {
 
 	public Transform fire;
 	private bool fireStarted = false;
+	private calculateTime timer;
 
 	void StartFire(Vector3 location) {
 		if (!fireStarted) {
@@ -17,7 +18,13 @@ public class startFire : MonoBehaviour {
 			foreach (GameObject person in people) {
 				person.GetComponent<AIPath>().enabled = true;
 			}
+
+			timer.StartTimer();
 		}
+	}
+
+	void Start() {
+		timer = GameObject.Find("TimeText").GetComponentInChildren<calculateTime>();
 	}
 
 	// Update is called once per frame
