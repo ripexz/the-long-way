@@ -1,5 +1,7 @@
-#The Long Way
-##UCC Computer Science 4th Year Project 2015
+# The Long Way
+## UCC Computer Science 4th Year Project 2015
+
+![https://ripexz.com/images/the-long-way.jpg](https://ripexz.com/images/the-long-way.jpg)
 
 This project, codenamed “The Long Way”, demonstrates that predetermined escape routes to the nearest emergency exit are not always the fastest.
 
